@@ -1,0 +1,8 @@
+#self config
+name: liudongyang
+
+#log config
+logging:
+  file: D:/logs/aaa.log
+  level:
+    root: info
