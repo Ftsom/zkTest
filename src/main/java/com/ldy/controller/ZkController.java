@@ -24,7 +24,7 @@ public class ZkController {
     @RequestMapping("/getData")
     @ResponseBody
     public String getData(String path) {
-        logger.info("{} -> getData name is {}", this.getClass().getSimpleName(), name);
+        logger.info("{} -> getData name is [{}]", this.getClass().getSimpleName(), name);
         return zkUtil.getData(path);
     }
 
