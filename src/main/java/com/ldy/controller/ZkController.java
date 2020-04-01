@@ -33,4 +33,10 @@ public class ZkController {
     public List<String> getChild(String path) {
         return zkUtil.getChild(path);
     }
+
+    @RequestMapping("/createNode")
+    @ResponseBody
+    public String createNode(String path, String data) {
+        return zkUtil.createNodeP(path, data.getBytes(), true);
+    }
 }

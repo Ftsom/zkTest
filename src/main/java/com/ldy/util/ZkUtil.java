@@ -1,9 +1,6 @@
 package com.ldy.util;
 
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +28,32 @@ public class ZkUtil {
         }
     }
 
+    public String createNodeP(String path, byte[] data, Boolean isSort) {
+        CreateMode createMode = isSort ? CreateMode.PERSISTENT_SEQUENTIAL : CreateMode.PERSISTENT;
+        String result = null;
+        try {
+            result = singleTonZooKeeper.create("/" + path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, createMode);
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String createNodeE(String path, byte[] data, Boolean isSort) {
+        CreateMode createMode = isSort ? CreateMode.EPHEMERAL_SEQUENTIAL : CreateMode.EPHEMERAL;
+        String result = null;
+        try {
+            result = singleTonZooKeeper.create("/" + path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public String getData(String path) {
         String result = null;
         try {
-            result = new String(singleTonZooKeeper.getData(path, true, null));
+            result = new String(singleTonZooKeeper.getData("/" + path, true, null));
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -44,12 +63,23 @@ public class ZkUtil {
     public List<String> getChild(String path) {
         List<String> result = null;
         try {
-            result = singleTonZooKeeper.getChildren(path, true);
+            result = singleTonZooKeeper.getChildren("/" + path, true);
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
         return result;
     }
+
+//    public List<String> exists(String path) {
+//        Stat stat = null;
+//        try {
+//            stat = singleTonZooKeeper.exists(path, true);
+//            stat.get
+//        } catch (KeeperException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
     private Watcher watcher = new Watcher() {
         @Override
