@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+<!--    <bean id="configCenterUtils" class="com.ldy.util.ConfigCenterUtil"/>-->
+
+    <!--  配置中心客户端 -->
+    <bean id="configCenterClient" class="com.jd.pop.configcenter.client.DefaultConfigCenterClient"
+          init-method="init" destroy-method="destroy">
+        <property name="zkServers" value="${config.zkServers}"/>
+        <property name="zNodePath" value="${config.zkNode}"/>
+        <property name="storeFilePath" value="${config.snapshotPath}"/>
+    </bean>
+
+    <bean id="zkClient" class="com.jd.pop.configcenter.client.zookeeper.ZkClient">
+        <constructor-arg index="0">
+            <value>${config.zkServers}</value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>${config.sessionTimeout}</value>
+        </constructor-arg>
+    </bean>
+</beans>

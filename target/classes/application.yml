@@ -1,6 +1,12 @@
 #self config
 name: liudongyang
 
+#configCenter
+config.zkServers: 192.168.146.90:2182
+config.zkNode: /pop/pop_tool/fuwu_market
+config.snapshotPath: /export/data/configcenter/i.fw.jd.com
+config.sessionTimeout: 300000
+
 #log config
 logging:
   file: D:/logs/aaa.log

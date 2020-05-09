@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-@Component
+//@Component
 public class ZkUtil {
     private ZooKeeper singleTonZooKeeper;
     private static int SESSION_TIME_OUT = 5000;

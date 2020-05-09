@@ -2,8 +2,10 @@ package com.ldy.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(scanBasePackages = {"com.*"})
+@ImportResource("classpath:spring-config-cache.xml")      //导入xml配置
 public class MainApplication {
 
     public static void main(String[] args) {
